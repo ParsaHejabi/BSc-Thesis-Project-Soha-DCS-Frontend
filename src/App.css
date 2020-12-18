@@ -117,3 +117,13 @@
 .ui.message .header {
   font-family: 'IRANSans Black' !important;
 }
+
+.rtl-table-admin {
+  font-family: IRANSans;
+  direction: rtl;
+}
+
+.rtl-table-admin * {
+  font-family: IRANSans;
+  text-align: right;
+}

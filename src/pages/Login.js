@@ -44,7 +44,6 @@ function Login() {
             }
           : values,
       onError(error) {
-        console.log(error)
         setErrors(error.graphQLErrors[0].extensions.exception.errors)
         setValues({
           username: '',

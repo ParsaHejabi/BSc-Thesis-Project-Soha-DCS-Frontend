@@ -13,6 +13,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Admin from './pages/Admin'
+import UserRequest from './pages/UserRequest'
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
             <AuthRoute component={Login} path="/login" />
 
             <AdminRoute component={Admin} path="/admin" />
+            <AdminRoute
+              exact
+              path="/userrequests/:userRequestId"
+              component={UserRequest}
+            />
             <Route component={Home} path="/" />
           </Switch>
         </Container>
