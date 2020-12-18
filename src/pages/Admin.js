@@ -18,7 +18,7 @@ const GET_UNQPPROVED_USER_REQUESTS = gql`
 `
 
 function Admin() {
-  let { loading, error, data } = useQuery(GET_UNQPPROVED_USER_REQUESTS)
+  let { error, data } = useQuery(GET_UNQPPROVED_USER_REQUESTS)
 
   if (error)
     return (
