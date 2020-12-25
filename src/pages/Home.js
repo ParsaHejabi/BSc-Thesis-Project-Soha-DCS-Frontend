@@ -6,9 +6,14 @@ import {
   Button,
   Message,
   Form,
+  Step,
+  Icon,
+  Statistic,
+  Divider,
 } from 'semantic-ui-react'
 import moment from 'moment'
 import React, { useState, useContext } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 import { AuthContext } from '../context/auth'
 
@@ -53,7 +58,37 @@ const ADD_USER_REQUEST = gql`
   }
 `
 
+const GET_REQUESTS_COUNT = gql`
+  {
+    userRequestsCount
+  }
+`
+
+const GET_QUESTIONS_COUNT = gql`
+  {
+    userQuestionsCount
+  }
+`
+
+const GET_OPINIONS_COUNT = gql`
+  {
+    userOpinionsCount
+  }
+`
+
+const GET_OTHER_REQUESTS_COUNT = gql`
+  {
+    userOtherRequestsCount
+  }
+`
+
 function Home() {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-device-width: 1224px)',
+  })
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
   const { user } = useContext(AuthContext)
 
   let { loading, error, data } = useQuery(GET_TOP_USERS)
@@ -78,6 +113,99 @@ function Home() {
   //   { key: '7', text: 'سایر', value: '' },
   // ]
 
+  const steps = [
+    {
+      key: 1,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه اول',
+      description: 'جمع جوایز: ۱۰۰ هزار تومان',
+      totalPrize: '100,000',
+    },
+    {
+      key: 2,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه دوم',
+      description: 'جمع جوایز: ۱۲۵ هزار تومان',
+      totalPrize: '125,000',
+    },
+    {
+      key: 3,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه سوم',
+      description: 'جمع جوایز: ۱۵۶ هزار تومان',
+      totalPrize: '156,250',
+    },
+    {
+      key: 4,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه چهارم',
+      description: 'جمع جوایز: ۱۹۵ هزار تومان',
+      totalPrize: '195,312',
+    },
+    {
+      key: 5,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه پنجم',
+      description: 'جمع جوایز: ۲۴۴ هزار تومان',
+      totalPrize: '244,140',
+    },
+    {
+      key: 6,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه ششم',
+      description: 'جمع جوایز: ۳۰۵ هزار تومان',
+      totalPrize: '305,175',
+    },
+    {
+      key: 7,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه هفتم',
+      description: 'جمع جوایز: ۳۸۱ هزار تومان',
+      totalPrize: '381,469',
+    },
+    {
+      key: 8,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه هشتم',
+      description: 'جمع جوایز: ۴۷۷ هزار تومان',
+      totalPrize: '476,837',
+    },
+    {
+      key: 9,
+      active: false,
+      completed: false,
+      iconName: '',
+      title: 'بازه نهم',
+      description: 'جمع جوایز: ۵۹۶ هزار تومان',
+      totalPrize: '596,046',
+    },
+    {
+      key: 10,
+      active: false,
+      completed: false,
+      iconName: 'star',
+      title: 'بازه دهم',
+      description: 'جمع جوایز: ۷۴۵ هزار تومان',
+      totalPrize: '745,058',
+    },
+  ]
+
   const [values, setValues] = useState({
     properties: [],
     text: '',
@@ -85,6 +213,66 @@ function Home() {
     possibleReference: '',
   })
   const [errors, setErrors] = useState({})
+
+  let {
+    // loading: requestsCountLoading,
+    // error: requestsCountError,
+    data: requestsCount,
+  } = useQuery(GET_REQUESTS_COUNT)
+  let {
+    // loading: opinionsCountLoading,
+    // error: opinionsCountError,
+    data: opinionsCount,
+  } = useQuery(GET_OPINIONS_COUNT)
+  let {
+    // loading: questionsCountLoading,
+    // error: questionsCountError,
+    data: questionsCount,
+  } = useQuery(GET_QUESTIONS_COUNT)
+  let {
+    // loading: otherRequestsCountLoading,
+    // error: otherRequestsCountError,
+    data: otherRequestsCount,
+  } = useQuery(GET_OTHER_REQUESTS_COUNT)
+
+  let stepNumber
+  let userRequestsCount
+  let userQuestionsCount
+  let userOpinionsCount
+  // let userOtherRequestsCount
+
+  let userRequestsRemainedCount
+  let userQuestionsRemainedCount
+  let userOpinionsRemainedCount
+
+  if (requestsCount && opinionsCount && questionsCount && otherRequestsCount) {
+    userRequestsCount = requestsCount.userRequestsCount
+    userQuestionsCount = questionsCount.userQuestionsCount
+    userOpinionsCount = opinionsCount.userOpinionsCount
+    // userOtherRequestsCount = otherRequestsCount.userOtherRequestsCount
+
+    stepNumber =
+      Math.min(
+        userRequestsCount / 100,
+        userOpinionsCount / 100,
+        userQuestionsCount / 100
+      ) + 1
+
+    steps.forEach((step, index) => {
+      if (index < stepNumber - 1) {
+        step.completed = true
+      } else if (index === stepNumber - 1) {
+        step.active = true
+        step.iconName = 'sync'
+      } else if (index !== 9) {
+        step.iconName = 'hourglass start'
+      }
+    })
+
+    userRequestsRemainedCount = stepNumber * 100 - userRequestsCount
+    userQuestionsRemainedCount = stepNumber * 100 - userQuestionsCount
+    userOpinionsRemainedCount = stepNumber * 100 - userOpinionsCount
+  }
 
   const [
     addUserRequest,
@@ -124,6 +312,9 @@ function Home() {
       })
     },
   })
+
+  // useEffect(() => {
+  // }, [])
 
   const onChange = (event) => {
     if (errors.hasOwnProperty(event.target.name)) {
@@ -169,77 +360,86 @@ function Home() {
     )
 
   return (
-    <Grid columns={2} divided>
+    <Grid columns={isDesktopOrLaptop ? 2 : 1} divided>
       <Grid.Row className="page-title">
         <h1>به سیستم جمع‌آوری داده‌ی سامانه‌ی سها خوش آمدید!</h1>
       </Grid.Row>
       <Grid.Row>
-        <Grid.Column width={5}>
-          <h2 className="rtl-h2">لیدربرد</h2>
-          <Table className="rtl-table" celled textAlign="center">
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>رتبه</Table.HeaderCell>
-                <Table.HeaderCell>نام کاربری</Table.HeaderCell>
-                <Table.HeaderCell>امتیازات</Table.HeaderCell>
-                <Table.HeaderCell>آخرین فعالیت</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {loading
-                ? mapArray.map((value, index) => {
-                    return (
+        {isDesktopOrLaptop && (
+          <Grid.Column width={6}>
+            <h2 className="rtl-h2">لیدربرد</h2>
+            <Table
+              className="rtl-table"
+              celled
+              textAlign="center"
+              fixed
+              singleLine
+              striped
+            >
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell width={2}>رتبه</Table.HeaderCell>
+                  <Table.HeaderCell width={6}>نام کاربری</Table.HeaderCell>
+                  <Table.HeaderCell width={3}>امتیازات</Table.HeaderCell>
+                  <Table.HeaderCell width={5}>آخرین فعالیت</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {loading
+                  ? mapArray.map((value, index) => {
+                      return (
+                        <Table.Row key={index}>
+                          <Table.Cell>
+                            <Placeholder>
+                              <Placeholder.Paragraph>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                              </Placeholder.Paragraph>
+                            </Placeholder>
+                          </Table.Cell>
+                          <Table.Cell>
+                            <Placeholder>
+                              <Placeholder.Paragraph>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                              </Placeholder.Paragraph>
+                            </Placeholder>
+                          </Table.Cell>
+                          <Table.Cell>
+                            <Placeholder>
+                              <Placeholder.Paragraph>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                              </Placeholder.Paragraph>
+                            </Placeholder>
+                          </Table.Cell>
+                          <Table.Cell>
+                            <Placeholder>
+                              <Placeholder.Paragraph>
+                                <Placeholder.Line />
+                                <Placeholder.Line />
+                              </Placeholder.Paragraph>
+                            </Placeholder>
+                          </Table.Cell>
+                        </Table.Row>
+                      )
+                    })
+                  : data &&
+                    data.topUsers.map((value, index) => (
                       <Table.Row key={index}>
+                        <Table.Cell>{index + 1}</Table.Cell>
+                        <Table.Cell>{value.username}</Table.Cell>
+                        <Table.Cell>{value.points}</Table.Cell>
                         <Table.Cell>
-                          <Placeholder>
-                            <Placeholder.Paragraph>
-                              <Placeholder.Line />
-                              <Placeholder.Line />
-                            </Placeholder.Paragraph>
-                          </Placeholder>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Placeholder>
-                            <Placeholder.Paragraph>
-                              <Placeholder.Line />
-                              <Placeholder.Line />
-                            </Placeholder.Paragraph>
-                          </Placeholder>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Placeholder>
-                            <Placeholder.Paragraph>
-                              <Placeholder.Line />
-                              <Placeholder.Line />
-                            </Placeholder.Paragraph>
-                          </Placeholder>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Placeholder>
-                            <Placeholder.Paragraph>
-                              <Placeholder.Line />
-                              <Placeholder.Line />
-                            </Placeholder.Paragraph>
-                          </Placeholder>
+                          {moment(value.updatedAt).fromNow(true)}
                         </Table.Cell>
                       </Table.Row>
-                    )
-                  })
-                : data &&
-                  data.topUsers.map((value, index) => (
-                    <Table.Row key={index}>
-                      <Table.Cell>{index + 1}</Table.Cell>
-                      <Table.Cell>{value.username}</Table.Cell>
-                      <Table.Cell>{value.points}</Table.Cell>
-                      <Table.Cell>
-                        {moment(value.updatedAt).fromNow(true)}
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-            </Table.Body>
-          </Table>
-        </Grid.Column>
-        <Grid.Column width={11}>
+                    ))}
+              </Table.Body>
+            </Table>
+          </Grid.Column>
+        )}
+        <Grid.Column width={isDesktopOrLaptop ? 10 : 16}>
           <h2 className="rtl-h2">هدف ما؟ 🎯</h2>
           <p className="rtl-p">
             هدف ما جمع‌آوری داده برای سامانه‌ای به نام سها است که در آزمایشگاه
@@ -307,6 +507,110 @@ function Home() {
           )}
           {user && (
             <>
+              <h2 className="rtl-h2">بازه‌های جایزه 🏆</h2>
+              <Grid columns={2}>
+                <Grid.Column width={6}>
+                  <Step.Group vertical size="tiny">
+                    {stepNumber &&
+                      steps.map((step) => {
+                        if (isTabletOrMobile) {
+                          if (step.key === 5) {
+                            return (
+                              <Step key={step.key}>
+                                <Step.Title>...</Step.Title>
+                              </Step>
+                            )
+                          } else if (step.key > 5 && step.key <= 9) {
+                            return null
+                          } else {
+                            ;<Step key={step.key}>
+                              <Icon name={step.iconName} />
+                              <Step.Content>
+                                <Step.Title>{step.title}</Step.Title>
+                                <Step.Description>
+                                  {step.description}
+                                </Step.Description>
+                              </Step.Content>
+                            </Step>
+                          }
+                        }
+                        if (step.completed) {
+                          return (
+                            <Step key={step.key} completed>
+                              <Icon name={step.iconName} />
+                              <Step.Title>{step.title}</Step.Title>
+                              <Step.Description>
+                                {step.description}
+                              </Step.Description>
+                            </Step>
+                          )
+                        } else if (step.active) {
+                          return (
+                            <Step key={step.key} active>
+                              <Icon name={step.iconName} />
+                              <Step.Content>
+                                <Step.Title>{step.title}</Step.Title>
+                                <Step.Description>
+                                  {step.description}
+                                </Step.Description>
+                              </Step.Content>
+                            </Step>
+                          )
+                        } else {
+                          return (
+                            <Step key={step.key}>
+                              <Icon name={step.iconName} />
+                              <Step.Content>
+                                <Step.Title>{step.title}</Step.Title>
+                                <Step.Description>
+                                  {step.description}
+                                </Step.Description>
+                              </Step.Content>
+                            </Step>
+                          )
+                        }
+                      })}
+                  </Step.Group>
+                </Grid.Column>
+                <Grid.Column className="statistics-center" width={10}>
+                  <Statistic color={'red'}>
+                    <Statistic.Value>
+                      {stepNumber && steps[stepNumber - 1].totalPrize}
+                    </Statistic.Value>
+                    <Statistic.Label className="rtl-div">
+                      مبلغ کل جایزه در این بازه به تومان
+                    </Statistic.Label>
+                  </Statistic>
+                  <Divider />
+                  <Statistic size="small">
+                    <Statistic.Value>
+                      {userRequestsRemainedCount}
+                    </Statistic.Value>
+                    <Statistic.Label className="rtl-div">
+                      تعداد درخواست‌های مانده تا بازه بعد
+                    </Statistic.Label>
+                  </Statistic>
+                  <Divider />
+                  <Statistic size="small">
+                    <Statistic.Value>
+                      {userQuestionsRemainedCount}
+                    </Statistic.Value>
+                    <Statistic.Label className="rtl-div">
+                      تعداد سوال‌های مانده تا بازه بعد
+                    </Statistic.Label>
+                  </Statistic>
+                  <Divider />
+                  <Statistic size="small">
+                    <Statistic.Value>
+                      {userOpinionsRemainedCount}
+                    </Statistic.Value>
+                    <Statistic.Label className="rtl-div">
+                      تعداد نظر‌های مانده تا بازه بعد
+                    </Statistic.Label>
+                  </Statistic>
+                </Grid.Column>
+              </Grid>
+
               <h2 className="rtl-h2">چند تا نکته! 💯</h2>
               <Message warning className="rtl-message">
                 <Message.Header>حواستون به چند تا نکته باشه:</Message.Header>

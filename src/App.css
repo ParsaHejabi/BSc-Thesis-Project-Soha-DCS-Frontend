@@ -31,7 +31,8 @@
 }
 
 .form-container {
-  width: 500px;
+  width: 90%;
+  max-width: 500px;
   margin: auto;
 }
 
@@ -126,4 +127,30 @@
 .rtl-table-admin * {
   font-family: IRANSans;
   text-align: right;
+}
+
+.ui.steps .step .title {
+  font-family: IRANSans;
+  direction: rtl;
+}
+
+.ui.steps .step .title ~ .description {
+  font-family: IRANSans;
+  direction: rtl;
+}
+
+.ui.horizontal.statistic > .label,
+.ui.horizontal.statistics .statistic > .label {
+  font-family: IRANSans;
+  direction: rtl;
+}
+
+.statistics-center {
+  text-align: center;
+}
+
+.statistics-center .ui.statistic > .label,
+.ui.statistics .statistic > .label {
+  font-family: IRANSans;
+  direction: rtl;
 }
