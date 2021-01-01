@@ -3,11 +3,11 @@ import { setContext } from 'apollo-link-context'
 
 let uri
 
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  uri = 'http://localhost:5000/'
-} else {
-  uri = 'https://soha-dcs-backend.herokuapp.com/'
-}
+// if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+//   uri = 'http://localhost:5000/'
+// } else {
+//   uri = 'https://soha-dcs-backend.herokuapp.com/'
+// }
 
 const authLink = setContext(() => {
   const token = localStorage.getItem('jwtToken')
@@ -19,7 +19,7 @@ const authLink = setContext(() => {
 })
 
 const httpLink = createHttpLink({
-  uri: uri,
+  uri: 'http://nlplab.sbu.ac.ir:50108/',
 })
 
 const client = new ApolloClient({
