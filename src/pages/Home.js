@@ -253,9 +253,9 @@ function Home() {
 
     stepNumber =
       Math.min(
-        userRequestsCount / 100,
-        userOpinionsCount / 100,
-        userQuestionsCount / 100
+        Math.floor(userRequestsCount / 100),
+        Math.floor(userOpinionsCount / 100),
+        Math.floor(userQuestionsCount / 100)
       ) + 1
 
     steps.forEach((step, index) => {
