@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/react,yarn,node,windows,macos,linux,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,yarn,node,windows,macos,linux,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,yarn,react,node,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,yarn,react,node,visualstudiocode
 
 ### Linux ###
 *~
@@ -223,4 +223,6 @@ $RECYCLE.BIN/
 # and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/react,yarn,node,windows,macos,linux,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,yarn,react,node,visualstudiocode
+
+build
