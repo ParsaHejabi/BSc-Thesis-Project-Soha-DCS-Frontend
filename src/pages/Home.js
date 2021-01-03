@@ -113,6 +113,10 @@ function Home() {
   //   { key: '7', text: 'سایر', value: '' },
   // ]
 
+  const STEP_SIZE_FOR_EACH_CATEGORY = 50
+  const BASE_PRIZE = 100000
+  const PRIZE_INCREASE_RATE = 120 / 100
+
   const steps = [
     {
       key: 1,
@@ -120,8 +124,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه اول',
-      description: 'جمع جوایز: ۱۲۵ هزار تومان',
-      totalPrize: '125,000',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 2,
@@ -129,8 +133,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه دوم',
-      description: 'جمع جوایز: ۱۵۶ هزار تومان',
-      totalPrize: '156,250',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 3,
@@ -138,8 +142,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه سوم',
-      description: 'جمع جوایز: ۱۹۵ هزار تومان',
-      totalPrize: '195,312',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 4,
@@ -147,8 +151,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه چهارم',
-      description: 'جمع جوایز: ۲۴۴ هزار تومان',
-      totalPrize: '244,140',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 5,
@@ -156,8 +160,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه پنجم',
-      description: 'جمع جوایز: ۳۰۵ هزار تومان',
-      totalPrize: '305,175',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 6,
@@ -165,8 +169,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه ششم',
-      description: 'جمع جوایز: ۳۸۱ هزار تومان',
-      totalPrize: '381,469',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 7,
@@ -174,8 +178,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه هفتم',
-      description: 'جمع جوایز: ۴۷۷ هزار تومان',
-      totalPrize: '476,837',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 8,
@@ -183,8 +187,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه هشتم',
-      description: 'جمع جوایز: ۵۹۶ هزار تومان',
-      totalPrize: '596,046',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 9,
@@ -192,8 +196,8 @@ function Home() {
       completed: false,
       iconName: '',
       title: 'بازه نهم',
-      description: 'جمع جوایز: ۷۴۵ هزار تومان',
-      totalPrize: '745,058',
+      description: '',
+      totalPrize: '',
     },
     {
       key: 10,
@@ -253,9 +257,9 @@ function Home() {
 
     stepNumber =
       Math.min(
-        Math.floor(userRequestsCount / 100),
-        Math.floor(userOpinionsCount / 100),
-        Math.floor(userQuestionsCount / 100)
+        Math.floor(userRequestsCount / STEP_SIZE_FOR_EACH_CATEGORY),
+        Math.floor(userOpinionsCount / STEP_SIZE_FOR_EACH_CATEGORY),
+        Math.floor(userQuestionsCount / STEP_SIZE_FOR_EACH_CATEGORY)
       ) + 1
 
     steps.forEach((step, index) => {
@@ -269,9 +273,25 @@ function Home() {
       }
     })
 
-    userRequestsRemainedCount = stepNumber * 100 - userRequestsCount
-    userQuestionsRemainedCount = stepNumber * 100 - userQuestionsCount
-    userOpinionsRemainedCount = stepNumber * 100 - userOpinionsCount
+    steps.forEach((step, index) => {
+      if (index !== 9) {
+        const totalPrize = Math.floor(
+          Math.pow(PRIZE_INCREASE_RATE, index + 1) * BASE_PRIZE
+        )
+
+        const totalPrizeThreeUpper = Math.floor(totalPrize / 1000)
+        const totalPrizeString = totalPrize.toLocaleString()
+        step.description = `جمع جوایز: ${totalPrizeThreeUpper} هزار تومان`
+        step.totalPrize = totalPrizeString
+      }
+    })
+
+    userRequestsRemainedCount =
+      stepNumber * STEP_SIZE_FOR_EACH_CATEGORY - userRequestsCount
+    userQuestionsRemainedCount =
+      stepNumber * STEP_SIZE_FOR_EACH_CATEGORY - userQuestionsCount
+    userOpinionsRemainedCount =
+      stepNumber * STEP_SIZE_FOR_EACH_CATEGORY - userOpinionsCount
   }
 
   const [
@@ -664,8 +684,8 @@ function Home() {
                     که البته این فیلد‌ها <b className="rtl-b">اختیاری</b> هستند.
                   </li>
                   <li>
-                    امتیاز متن‌های وارد کرده شما بعد از ۱ یا ۲ ساعت به اکانتتون
-                    اضافه می‌شه.
+                    امتیاز متن‌هایی که وارد کردید انتهای هر شب و بعد از بررسی،
+                    به اکانتتون اضافه می‌شه.
                   </li>
                   <li>
                     دقت کنید که امتیازی که می‌گیرید با سایز متن ورودی‌تون، تعداد
