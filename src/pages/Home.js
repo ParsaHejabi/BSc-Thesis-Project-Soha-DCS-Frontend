@@ -629,6 +629,10 @@ function Home() {
                     </Statistic.Label>
                   </Statistic>
                   <Divider />
+                  <h3 className="rtl-h2">
+                    دقت کنید که هر ۳ شمارنده زیر باید به صفر (یا کوچک‌تر از صفر)
+                    برسند تا بازه بعدی جایزه شروع شود:
+                  </h3>
                   <Statistic size="small">
                     <Statistic.Value>
                       {userRequestsRemainedCount}
