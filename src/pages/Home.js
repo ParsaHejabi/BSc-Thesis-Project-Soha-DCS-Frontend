@@ -115,7 +115,7 @@ function Home() {
 
   const STEP_SIZE_FOR_EACH_CATEGORY = 50
   const BASE_PRIZE = 100000
-  const PRIZE_INCREASE_RATE = 120 / 100
+  const PRIZE_INCREASE_RATE = 125 / 100
 
   const steps = [
     {
