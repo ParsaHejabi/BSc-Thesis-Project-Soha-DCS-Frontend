@@ -410,7 +410,7 @@ function Home() {
                   <Table.HeaderCell width={2}>رتبه</Table.HeaderCell>
                   <Table.HeaderCell width={6}>نام کاربری</Table.HeaderCell>
                   <Table.HeaderCell width={3}>امتیازات</Table.HeaderCell>
-                  <Table.HeaderCell width={5}>آخرین فعالیت</Table.HeaderCell>
+                  <Table.HeaderCell width={5}>آخرین آپدیت</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
