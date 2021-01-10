@@ -60,19 +60,19 @@ const ADD_USER_REQUEST = gql`
 
 const GET_REQUESTS_COUNT = gql`
   {
-    userRequestsCount
+    userRequestsUnapprovedCount
   }
 `
 
 const GET_QUESTIONS_COUNT = gql`
   {
-    userQuestionsCount
+    userQuestionsUnapprovedCount
   }
 `
 
 const GET_OPINIONS_COUNT = gql`
   {
-    userOpinionsCount
+    userOpinionsUnapprovedCount
   }
 `
 
@@ -250,9 +250,9 @@ function Home() {
   let userOpinionsRemainedCount
 
   if (requestsCount && opinionsCount && questionsCount && otherRequestsCount) {
-    userRequestsCount = requestsCount.userRequestsCount
-    userQuestionsCount = questionsCount.userQuestionsCount
-    userOpinionsCount = opinionsCount.userOpinionsCount
+    userRequestsCount = requestsCount.userRequestsUnapprovedCount
+    userQuestionsCount = questionsCount.userQuestionsUnapprovedCount
+    userOpinionsCount = opinionsCount.userOpinionsUnapprovedCount
     // userOtherRequestsCount = otherRequestsCount.userOtherRequestsCount
 
     stepNumber =
