@@ -386,10 +386,11 @@ function Home() {
       </Grid.Row>
       <Grid.Row className="page-title">
         <Message positive className="rtl-message">
-          <Message.Header>بازه‌بندی جوایز تغییر کرد!</Message.Header>
+          <Message.Header>تغییر در عملکرد شمارنده‌ها!</Message.Header>
           <p>
-            برای افزایش مبلغ جایزه، کافیست در هر بازه ۵۰ درخواست، ۵۰ سوال و ۵۰
-            نظر وارد و تایید شود.
+            شمارنده‌های سایت تاکنون فقط ورودی‌های تایید‌شده را می‌شماردند اما در
+            تغییر جدید، ورودی‌های تایید‌نشده نیز شمارش می‌شوند و پس از ثبت ورودی
+            تغییر آن‌ها را می‌توانید ببینید.
           </p>
         </Message>
       </Grid.Row>
