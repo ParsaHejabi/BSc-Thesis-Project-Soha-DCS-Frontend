@@ -386,11 +386,10 @@ function Home() {
       </Grid.Row>
       <Grid.Row className="page-title">
         <Message positive className="rtl-message">
-          <Message.Header>تغییر در عملکرد شمارنده‌ها!</Message.Header>
+          <Message.Header>اضافه شدن بخش My Profile!</Message.Header>
           <p>
-            شمارنده‌های سایت تاکنون فقط ورودی‌های تایید‌شده را می‌شماردند اما در
-            تغییر جدید، ورودی‌های تایید‌نشده نیز شمارش می‌شوند و پس از ثبت ورودی
-            تغییر آن‌ها را می‌توانید ببینید.
+            اکنون در بخش My Profile می توانید ورودی‌هایی که تا به حال وارد
+            کرده‌اید را به همراه وضعیت آن‌ها ببینید.
           </p>
         </Message>
       </Grid.Row>
