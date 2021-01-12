@@ -14,6 +14,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Admin from './pages/Admin'
 import UserRequest from './pages/UserRequest'
+import Profile from './pages/Profile'
+import ProfileRoute from './util/ProfileRoute'
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
         <Container>
           <MenuBar />
           <Switch>
-            {/* <Route component={Profile} path="/profile" /> */}
+            <ProfileRoute component={Profile} path="/profile" />
             {/* <Route component={About} path="/about" /> */}
             <AuthRoute component={Register} path="/register" />
             <AuthRoute component={Login} path="/login" />

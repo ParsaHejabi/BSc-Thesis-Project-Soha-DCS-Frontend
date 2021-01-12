@@ -175,7 +175,7 @@ function UserRequest(props) {
 
   if (error)
     return (
-      <div className="form-container">
+      <div className="admin-form-container">
         <h1 className="page-title">
           مشکلی در اتصال به سرور به وجود آمده.
           <br />
@@ -187,7 +187,7 @@ function UserRequest(props) {
     )
 
   return (
-    <div className="form-container">
+    <div className="admin-form-container">
       <Form
         onSubmit={(e) => {
           e.preventDefault()

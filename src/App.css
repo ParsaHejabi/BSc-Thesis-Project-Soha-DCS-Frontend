@@ -36,6 +36,12 @@
   margin: auto;
 }
 
+.admin-form-container {
+  width: 90%;
+  max-width: 1500px;
+  margin: auto;
+}
+
 .rtl-form-field {
   direction: rtl;
   font-family: IRANSans !important;
@@ -153,4 +159,12 @@
 .ui.statistics .statistic > .label {
   font-family: IRANSans;
   direction: rtl;
+}
+
+.admin-tab {
+  direction: rtl;
+}
+
+.ui.tabular.menu .item {
+  font-family: 'dana';
 }

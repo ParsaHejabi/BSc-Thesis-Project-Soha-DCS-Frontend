@@ -38,14 +38,14 @@ const MenuBar = () => {
           to="/admin"
         />
       )}
-      {/* <Menu.Item
+      <Menu.Item
         name={`My Profile`}
         active={activeItem === 'profile'}
         onClick={handleItemClick}
         as={Link}
         to="/profile"
       />
-      <Menu.Item
+      {/* <Menu.Item
         name="about"
         active={activeItem === 'about'}
         onClick={handleItemClick}
