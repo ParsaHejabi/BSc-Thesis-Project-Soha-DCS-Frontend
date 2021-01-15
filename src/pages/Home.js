@@ -396,12 +396,17 @@ function Home() {
       </Grid.Row>
       <Grid.Row className="page-title">
         <Message warning className="rtl-message">
-          <Message.Header>زمان تا اتمام مسابقه:</Message.Header>
-          <div className="timer-home">
+          <Message.Header>مسابقه تمام شد!</Message.Header>
+          <Message.Content>
+            با تشکر از همراهی و کمک شما، یکشنبه ۲۸ دی ماه ساعت ۱۲ ظهر نام کاربری
+            نفرات برتر در همین صفحه اعلام خواهد شد و برندگان مسابقه در بخش
+            پروفایل من می توانند راهنمای دریافت جایزه‌شان را مشاهده کنند.
+          </Message.Content>
+          {/* <div className="timer-home">
             <span>{hours < 10 ? `0${hours}` : hours}</span>:
             <span>{minutes < 10 ? `0${minutes}` : minutes}</span>:
             <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
-          </div>
+          </div> */}
         </Message>
       </Grid.Row>
       <Grid.Row>
@@ -682,7 +687,7 @@ function Home() {
                 </Grid.Column>
               </Grid>
 
-              <h2 className="rtl-h2">چند تا نکته! 💯</h2>
+              {/* <h2 className="rtl-h2">چند تا نکته! 💯</h2>
               <Message warning className="rtl-message">
                 <Message.Header>حواستون به چند تا نکته باشه:</Message.Header>
                 <ul className="rtl-p">
@@ -719,8 +724,8 @@ function Home() {
                     وارد کرده می‌گیره.
                   </li>
                 </ul>
-              </Message>
-              <Form
+              </Message> */}
+              {/* <Form
                 onSubmit={(e) => {
                   e.preventDefault()
                   addUserRequest()
@@ -804,7 +809,7 @@ function Home() {
                 <Form.Button className="rtl-form-field" primary>
                   ثبت
                 </Form.Button>
-              </Form>
+              </Form> */}
             </>
           )}
         </Grid.Column>
