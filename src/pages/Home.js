@@ -19,6 +19,8 @@ import { AuthContext } from '../context/auth'
 
 import { Link } from 'react-router-dom'
 
+import { useTimer } from 'react-timer-hook'
+
 const GET_TOP_USERS = gql`
   {
     topUsers {
@@ -366,6 +368,14 @@ function Home() {
     }
   }
 
+  const now = new Date()
+  const endDate = new Date('2021-01-15T20:29:59Z')
+  const time = (endDate.getTime() - now.getTime()) / 1000
+  const expiryDate = new Date()
+  expiryDate.setSeconds(expiryDate.getSeconds() + time)
+
+  const { seconds, minutes, hours } = useTimer({ expiryTimestamp: expiryDate })
+
   if (error)
     return (
       <div className="form-container">
@@ -385,12 +395,13 @@ function Home() {
         <h1>به سیستم جمع‌آوری داده‌ی سامانه‌ی سها خوش آمدید!</h1>
       </Grid.Row>
       <Grid.Row className="page-title">
-        <Message positive className="rtl-message">
-          <Message.Header>اضافه شدن بخش My Profile!</Message.Header>
-          <p>
-            اکنون در بخش My Profile می توانید ورودی‌هایی که تا به حال وارد
-            کرده‌اید را به همراه وضعیت آن‌ها ببینید.
-          </p>
+        <Message warning className="rtl-message">
+          <Message.Header>زمان تا اتمام مسابقه:</Message.Header>
+          <div className="timer-home">
+            <span>{hours < 10 ? `0${hours}` : hours}</span>:
+            <span>{minutes < 10 ? `0${minutes}` : minutes}</span>:
+            <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
+          </div>
         </Message>
       </Grid.Row>
       <Grid.Row>
