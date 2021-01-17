@@ -51,10 +51,30 @@ function Profile() {
     )
   }
 
+  const isWinner =
+    user.username === 'IAmTalas' ||
+    user.username === 'Maryam_es' ||
+    user.username === 'admin'
+
   return (
     <div className="admin-form-container">
       <h1 className="page-title">{`${user.username} عزیز، خوش آمدید!`}</h1>
       <Loader active={loading} />
+      {isWinner && (
+        <>
+          <p className="rtl-p">
+            با کلیک بر روی لینک روبرو، لطفا شماره کارت ۱۶ رقمی خود را به همراه
+            نام دارنده‌ی کارت، ایمیل کنید:{` `}
+            <a href="mailto:parsa.hejabi@gmail.com?subject=برنده وبسایت جمع‌آوری داده سها">
+              ایمیل کردن شماره کارت
+            </a>
+          </p>
+          <p className="rtl-p">
+            در صورتی که لینک کار نکرد لطفا اطلاعات خواسته شده را به ایمیل:
+            parsa.hejabi@gmail.com ایمیل کنید.
+          </p>
+        </>
+      )}
       {userPointsData && (
         <p className="rtl-p">
           {`مجموع امتیازات برای ورودی‌های تایید شده شما تا الآن: ${userPointsData.user.points}`}

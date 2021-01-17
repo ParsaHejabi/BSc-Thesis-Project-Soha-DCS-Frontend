@@ -395,12 +395,14 @@ function Home() {
         <h1>به سیستم جمع‌آوری داده‌ی سامانه‌ی سها خوش آمدید!</h1>
       </Grid.Row>
       <Grid.Row className="page-title">
-        <Message warning className="rtl-message">
+        <Message success className="rtl-message">
           <Message.Header>مسابقه تمام شد!</Message.Header>
           <Message.Content>
-            با تشکر از همراهی و کمک شما، یکشنبه ۲۸ دی ماه ساعت ۱۲ ظهر نام کاربری
-            نفرات برتر در همین صفحه اعلام خواهد شد و برندگان مسابقه در بخش
-            پروفایل من می توانند راهنمای دریافت جایزه‌شان را مشاهده کنند.
+            برندگان مسابقه:{` `}
+            <b>IAmTalas و Maryam_es</b>
+            <br />
+            لطفا در پروفایل خود لاگین کنند و از طریق راهنمای دریافت جایزه، جایزه
+            خود را دریافت نمایند.
           </Message.Content>
           {/* <div className="timer-home">
             <span>{hours < 10 ? `0${hours}` : hours}</span>:
