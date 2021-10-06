@@ -1,25 +1,24 @@
-import { useQuery, gql, useMutation } from '@apollo/client'
+import { useQuery, gql } from '@apollo/client'
 import {
   Table,
   Grid,
   Placeholder,
   Button,
   Message,
-  Form,
   Step,
   Icon,
   Statistic,
   Divider,
 } from 'semantic-ui-react'
 import moment from 'moment'
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
 import { AuthContext } from '../context/auth'
 
 import { Link } from 'react-router-dom'
 
-import { useTimer } from 'react-timer-hook'
+// import { useTimer } from 'react-timer-hook'
 
 const GET_TOP_USERS = gql`
   {
@@ -31,34 +30,34 @@ const GET_TOP_USERS = gql`
   }
 `
 
-const ADD_USER_REQUEST = gql`
-  mutation addUserRequest(
-    $text: String!
-    $possibleReference: String
-    $type: RequestType
-    $properties: [RequestProperty]
-  ) {
-    addUserRequest(
-      userRequestInput: {
-        text: $text
-        type: $type
-        possibleReference: $possibleReference
-        properties: $properties
-        place: WEBSITE
-      }
-    ) {
-      id
-      user
-      text
-      type
-      possibleReference
-      properties
-      place
-      createdAt
-      updatedAt
-    }
-  }
-`
+// const ADD_USER_REQUEST = gql`
+//   mutation addUserRequest(
+//     $text: String!
+//     $possibleReference: String
+//     $type: RequestType
+//     $properties: [RequestProperty]
+//   ) {
+//     addUserRequest(
+//       userRequestInput: {
+//         text: $text
+//         type: $type
+//         possibleReference: $possibleReference
+//         properties: $properties
+//         place: WEBSITE
+//       }
+//     ) {
+//       id
+//       user
+//       text
+//       type
+//       possibleReference
+//       properties
+//       place
+//       createdAt
+//       updatedAt
+//     }
+//   }
+// `
 
 const GET_REQUESTS_COUNT = gql`
   {
@@ -97,13 +96,13 @@ function Home() {
 
   const mapArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-  const options = [
-    { key: 'QUESTION', text: 'سوال', value: 'QUESTION' },
-    { key: 'REQUEST', text: 'درخواست', value: 'REQUEST' },
-    { key: 'OPINION', text: 'نظر / انتقاد و پیشنهاد', value: 'OPINION' },
-    { key: 'OTHER', text: 'سایر', value: 'OTHER' },
-    { key: 'EMPTY', text: 'نوع ورودی', value: '' },
-  ]
+  // const options = [
+  //   { key: 'QUESTION', text: 'سوال', value: 'QUESTION' },
+  //   { key: 'REQUEST', text: 'درخواست', value: 'REQUEST' },
+  //   { key: 'OPINION', text: 'نظر / انتقاد و پیشنهاد', value: 'OPINION' },
+  //   { key: 'OTHER', text: 'سایر', value: 'OTHER' },
+  //   { key: 'EMPTY', text: 'نوع ورودی', value: '' },
+  // ]
 
   // const possibleReferenceOptions = [
   //   { key: '1', text: 'رئیس دانشکده', value: 'رئیس دانشکده' },
@@ -212,13 +211,13 @@ function Home() {
     },
   ]
 
-  const [values, setValues] = useState({
-    properties: [],
-    text: '',
-    type: '',
-    possibleReference: '',
-  })
-  const [errors, setErrors] = useState({})
+  // const [values, setValues] = useState({
+  //   properties: [],
+  //   text: '',
+  //   type: '',
+  //   possibleReference: '',
+  // })
+  // const [errors, setErrors] = useState({})
 
   let {
     // loading: requestsCountLoading,
@@ -296,75 +295,75 @@ function Home() {
       stepNumber * STEP_SIZE_FOR_EACH_CATEGORY - userOpinionsCount
   }
 
-  const [addUserRequest, { loading: mutationLoading, data: mutationData }] =
-    useMutation(ADD_USER_REQUEST, {
-      variables:
-        values.type === ''
-          ? {
-              properties: values.properties,
-              text: values.text,
-              possibleReference: values.possibleReference,
-            }
-          : values,
-      // update(cache, mutationResult) {
-      //   let { loading, error, data } = useQuery(GET_TOP_USERS)
+  // const [addUserRequest, { loading: mutationLoading, data: mutationData }] =
+  //   useMutation(ADD_USER_REQUEST, {
+  //     variables:
+  //       values.type === ''
+  //         ? {
+  //             properties: values.properties,
+  //             text: values.text,
+  //             possibleReference: values.possibleReference,
+  //           }
+  //         : values,
+  //     // update(cache, mutationResult) {
+  //     //   let { loading, error, data } = useQuery(GET_TOP_USERS)
 
-      //   cache.writeQuery({ query: GET_TOP_USERS, data })
-      // },
-      refetchQueries: [{ query: GET_TOP_USERS }],
-      awaitRefetchQueries: true,
-      onCompleted: () => {
-        setErrors({})
-        setValues({
-          properties: [],
-          text: '',
-          type: '',
-          possibleReference: '',
-        })
-      },
-      onError(error) {
-        setErrors(error.graphQLErrors[0].extensions.exception.errors.errors)
-        setValues({
-          properties: [],
-          text: '',
-          type: '',
-          possibleReference: '',
-        })
-      },
-    })
+  //     //   cache.writeQuery({ query: GET_TOP_USERS, data })
+  //     // },
+  //     refetchQueries: [{ query: GET_TOP_USERS }],
+  //     awaitRefetchQueries: true,
+  //     onCompleted: () => {
+  //       setErrors({})
+  //       setValues({
+  //         properties: [],
+  //         text: '',
+  //         type: '',
+  //         possibleReference: '',
+  //       })
+  //     },
+  //     onError(error) {
+  //       setErrors(error.graphQLErrors[0].extensions.exception.errors.errors)
+  //       setValues({
+  //         properties: [],
+  //         text: '',
+  //         type: '',
+  //         possibleReference: '',
+  //       })
+  //     },
+  //   })
 
   // useEffect(() => {
   // }, [])
 
-  const onChange = (event) => {
-    if (errors.hasOwnProperty(event.target.name)) {
-      if (event.target.value.trim() !== '') {
-        let newErrors = errors
-        delete newErrors[event.target.name]
-        setErrors(newErrors)
-      }
-    }
-    setValues({ ...values, [event.target.name]: event.target.value })
-  }
+  // const onChange = (event) => {
+  //   if (errors.hasOwnProperty(event.target.name)) {
+  //     if (event.target.value.trim() !== '') {
+  //       let newErrors = errors
+  //       delete newErrors[event.target.name]
+  //       setErrors(newErrors)
+  //     }
+  //   }
+  //   setValues({ ...values, [event.target.name]: event.target.value })
+  // }
 
-  const onChangeSelect = (event, data) => {
-    setValues({ ...values, [data.name]: data.value })
-  }
+  // const onChangeSelect = (event, data) => {
+  //   setValues({ ...values, [data.name]: data.value })
+  // }
 
-  const onChangeCheckbox = (event, data) => {
-    if (event.target.checked) {
-      let newProperties = values.properties
-      newProperties.push(event.target.name)
-      setValues({ ...values, properties: newProperties })
-    } else {
-      let newProperties = values.properties
-      let index = newProperties.indexOf(event.target.name)
-      if (index >= 0) {
-        newProperties.splice(index, 1)
-      }
-      setValues({ ...values, properties: newProperties })
-    }
-  }
+  // const onChangeCheckbox = (event, data) => {
+  //   if (event.target.checked) {
+  //     let newProperties = values.properties
+  //     newProperties.push(event.target.name)
+  //     setValues({ ...values, properties: newProperties })
+  //   } else {
+  //     let newProperties = values.properties
+  //     let index = newProperties.indexOf(event.target.name)
+  //     if (index >= 0) {
+  //       newProperties.splice(index, 1)
+  //     }
+  //     setValues({ ...values, properties: newProperties })
+  //   }
+  // }
 
   const now = new Date()
   const endDate = new Date('2021-01-15T20:29:59Z')
@@ -372,7 +371,7 @@ function Home() {
   const expiryDate = new Date()
   expiryDate.setSeconds(expiryDate.getSeconds() + time)
 
-  const { seconds, minutes, hours } = useTimer({ expiryTimestamp: expiryDate })
+  // const { seconds, minutes, hours } = useTimer({ expiryTimestamp: expiryDate })
 
   if (error)
     return (
