@@ -296,44 +296,42 @@ function Home() {
       stepNumber * STEP_SIZE_FOR_EACH_CATEGORY - userOpinionsCount
   }
 
-  const [
-    addUserRequest,
-    { loading: mutationLoading, data: mutationData },
-  ] = useMutation(ADD_USER_REQUEST, {
-    variables:
-      values.type === ''
-        ? {
-            properties: values.properties,
-            text: values.text,
-            possibleReference: values.possibleReference,
-          }
-        : values,
-    // update(cache, mutationResult) {
-    //   let { loading, error, data } = useQuery(GET_TOP_USERS)
+  const [addUserRequest, { loading: mutationLoading, data: mutationData }] =
+    useMutation(ADD_USER_REQUEST, {
+      variables:
+        values.type === ''
+          ? {
+              properties: values.properties,
+              text: values.text,
+              possibleReference: values.possibleReference,
+            }
+          : values,
+      // update(cache, mutationResult) {
+      //   let { loading, error, data } = useQuery(GET_TOP_USERS)
 
-    //   cache.writeQuery({ query: GET_TOP_USERS, data })
-    // },
-    refetchQueries: [{ query: GET_TOP_USERS }],
-    awaitRefetchQueries: true,
-    onCompleted: () => {
-      setErrors({})
-      setValues({
-        properties: [],
-        text: '',
-        type: '',
-        possibleReference: '',
-      })
-    },
-    onError(error) {
-      setErrors(error.graphQLErrors[0].extensions.exception.errors.errors)
-      setValues({
-        properties: [],
-        text: '',
-        type: '',
-        possibleReference: '',
-      })
-    },
-  })
+      //   cache.writeQuery({ query: GET_TOP_USERS, data })
+      // },
+      refetchQueries: [{ query: GET_TOP_USERS }],
+      awaitRefetchQueries: true,
+      onCompleted: () => {
+        setErrors({})
+        setValues({
+          properties: [],
+          text: '',
+          type: '',
+          possibleReference: '',
+        })
+      },
+      onError(error) {
+        setErrors(error.graphQLErrors[0].extensions.exception.errors.errors)
+        setValues({
+          properties: [],
+          text: '',
+          type: '',
+          possibleReference: '',
+        })
+      },
+    })
 
   // useEffect(() => {
   // }, [])
